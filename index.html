@@ -1,248 +1,525 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Gowtham — Portfolio</title>
-  <meta name="description" content="Gowtham - Computer Science Student | Portfolio" />
-  <style>
-    /* Minimal styling (kept similar to your previous style) */
-    :root { --accent:#3498db; --muted:#6b7280; --bg:#f9f9f9; --card:#fff; --shadow:0 6px 20px rgba(2,6,23,0.06); }
-    *{box-sizing:border-box}
-    body{font-family:Inter,system-ui,Arial;margin:0;background:var(--bg);color:#111}
-    .container{max-width:1000px;margin:0 auto;padding:18px}
-    header{background:var(--card);box-shadow:var(--shadow);position:sticky;top:0;z-index:20}
-    .nav{display:flex;justify-content:space-between;align-items:center;padding:14px 18px}
-    .logo{font-weight:700;color:var(--accent);text-decoration:none}
-    .hero{background:linear-gradient(135deg,var(--accent),#2c3e50);color:#fff;padding:60px;border-radius:8px;margin-top:18px;text-align:center}
-    .btn{display:inline-block;background:var(--accent);color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;border:none;cursor:pointer}
-    main{padding:18px}
-    .card{background:var(--card);padding:18px;border-radius:10px;box-shadow:var(--shadow);margin-bottom:18px}
-    .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
-    .skill-card,.project-card{padding:12px;border-radius:8px;background:#fff;box-shadow:0 4px 16px rgba(0,0,0,0.03)}
-    .contact-grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
-    @media (max-width:880px){.contact-grid{grid-template-columns:1fr}}
-    .muted{color:var(--muted);font-size:14px}
-    .form-group{margin-bottom:12px}
-    input,textarea{width:100%;padding:10px;border-radius:6px;border:1px solid #ddd;font-size:14px}
-    .msg{padding:10px;border-radius:6px;font-size:14px}
-    .msg.success{background:#e6ffef;color:#084c26;border:1px solid #b7f3c9}
-    .msg.error{background:#ffecec;color:#7a1212;border:1px solid #f2b8b8}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --text-color: #333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h1, h2, h3 {
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-color);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 150px 0 100px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        /* Skills */
+        .skills {
+            background-color: var(--light-color);
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+        }
+
+        /* Projects */
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-image {
+            height: 200px;
+            background-color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        /* Contact */
+        .contact {
+            background-color: var(--light-color);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+
+        .contact-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin: 0 10px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                box-shadow: var(--shadow);
+                padding: 20px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-<header>
-  <div class="container nav">
-    <a class="logo" href="#">Gowtham</a>
-    <div>
-      <a href="#projects" style="margin-right:12px;color:#333;text-decoration:none">Projects</a>
-      <a href="#contact" class="btn" style="background:#2c3e50">Contact</a>
-    </div>
-  </div>
-</header>
 
-<main class="container">
-  <section class="hero">
-    <h1 style="margin:0 0 8px">Hi, I'm Gowtham</h1>
-    <p class="muted" style="max-width:760px;margin:0 auto 12px">Computer Science Engineering student — Malnad College of Engineering. I build web projects and prepare for technical roles.</p>
-    <a href="#projects" class="btn">View My Work</a>
-    <a href="resume.pdf" class="btn" download style="margin-left:12px">Download Resume</a>
-  </section>
-
-  <section id="about" class="card" style="margin-top:18px">
-    <h2>About Me</h2>
-    <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
-      <div style="flex:1;min-width:240px">
-        <p>Hello! I'm <strong>Gowtham</strong>, a Computer Science Engineering student at Malnad College of Engineering. I enjoy web development, problem solving and building projects that demonstrate my skills.</p>
-        <p class="muted">Skills: HTML, CSS, JavaScript, PHP, MySQL, Python, C++</p>
-      </div>
-      <div style="width:300px;height:300px;border-radius:10px;overflow:hidden;background:#2c3e50;display:flex;align-items:center;justify-content:center;color:#fff">
-        <img src="myphoto.jpg" alt="Gowtham" style="width:100%;height:100%;object-fit:cover;display:block">
-      </div>
-    </div>
-  </section>
-
-  <section id="skills" class="card">
-    <h2>Skills</h2>
-    <div class="skills-grid">
-      <div class="skill-card"><strong>HTML/CSS</strong><div class="muted">Responsive design, semantic HTML</div></div>
-      <div class="skill-card"><strong>JavaScript</strong><div class="muted">DOM, ES6, AJAX</div></div>
-      <div class="skill-card"><strong>PHP & MySQL</strong><div class="muted">Server-side scripting & DB basics</div></div>
-      <div class="skill-card"><strong>Python & C++</strong><div class="muted">Algorithms and problem solving</div></div>
-    </div>
-  </section>
-
-  <section id="projects" class="card">
-    <h2>Projects</h2>
-    <div style="display:grid;gap:12px">
-      <div class="project-card">
-        <h3>Portfolio Website</h3>
-        <p class="muted">Built with HTML/CSS/JS and PHP backend for contact form. Hosted locally on XAMPP; can be hosted on static GitHub Pages (contact requires backend).</p>
-      </div>
-      <div class="project-card">
-        <h3>Graph Visualizer</h3>
-        <p class="muted">A visualization of BFS/DFS for educational use.</p>
-      </div>
-      <div class="project-card">
-        <h3>Chat UI Demo</h3>
-        <p class="muted">Front-end chat interface demo focusing on UI interactions.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="card">
-    <h2>Get In Touch</h2>
-    <div class="contact-grid">
-      <!-- left: form -->
-      <div>
-        <div id="formMsg" aria-live="polite"></div>
-        <form id="contactForm" novalidate>
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input id="name" name="name" type="text" required>
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" required value="gowthamveeraiah76@gmail.com">
-          </div>
-          <div class="form-group">
-            <label for="subject">Subject</label>
-            <input id="subject" name="subject" type="text" required>
-          </div>
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="6" required></textarea>
-          </div>
-
-          <div style="display:flex;gap:10px;align-items:center">
-            <button type="submit" class="btn">Send Message</button>
-            <div id="spinner" style="display:none">Sending…</div>
-            <button type="button" id="viewMsgs" style="background:#fff;border:1px solid #ddd;padding:8px;border-radius:6px;cursor:pointer">View Stored Messages</button>
-          </div>
-        </form>
-
-        <div id="storedMessages" style="margin-top:14px"></div>
-      </div>
-
-      <!-- right: contact info -->
-      <div>
-        <div class="card">
-          <h3>Contact Info</h3>
-          <p><strong>Location</strong><br>Hassan, Karnataka</p>
-          <p><strong>Email</strong><br>gowthamveeraiah76@gmail.com</p>
-          <p><strong>Phone</strong><br>+91 7676076516</p>
-          <p><strong>Resume</strong><br><a href="resume.pdf" download>Download Resume (PDF)</a></p>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Portfolio</div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span><span></span><span></span>
+                </div>
+            </nav>
         </div>
-      </div>
-    </div>
-  </section>
-</main>
+    </header>
 
-<footer style="padding:18px;text-align:center;background:#222;color:#fff">
-  © 2025 Gowtham — Malnad College of Engineering
-</footer>
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Hi, I'm Gowtham</h1>
+            <p>A passionate Computer Science Engineering student from Malnad College of Engineering, Hassan</p>
 
-<script>
-/*
-  AJAX contact form posting to contact.php (expects JSON response).
-  Place contact.php in the same folder. Works on XAMPP: http://localhost/portfolio/index.html
-*/
+            <a href="#projects" class="btn">View My Work</a>
 
-(function(){
-  const form = document.getElementById('contactForm');
-  const formMsg = document.getElementById('formMsg');
-  const spinner = document.getElementById('spinner');
-  const storedMessages = document.getElementById('storedMessages');
-  const viewMsgsBtn = document.getElementById('viewMsgs');
+            <!-- ADDED RESUME BUTTON -->
+            <a href="resume.pdf" class="btn" download style="margin-left:15px;">Download Resume</a>
 
-  function showMessage(type, text){
-    formMsg.innerHTML = '<div class="msg ' + (type==='success' ? 'success':'error') + '">' + text + '</div>';
-  }
+        </div>
+    </section>
 
-  function clearMessage(){ formMsg.innerHTML = ''; }
+    <!-- ABOUT SECTION -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Hello! I'm Gowtham, a Computer Science Engineering student at Malnad College of Engineering. I enjoy web development, problem-solving, and creating interactive projects that develop my skills.</p>
+                    <p>I have experience in HTML, CSS, JavaScript, PHP, MySQL, Python and C++. I'm also preparing for government technical exams like BEL, ISRO, DRDO.</p>
+                    <a href="#contact" class="btn">Get In Touch</a>
+                </div>
+                <div class="about-image">
+                    <img src="myphoto.jpg" style="width: 300px; height: 300px; object-fit: cover; border-radius: 10px; box-shadow: var(--shadow);" alt="Gowtham Photo">
+                </div>
+            </div>
+        </div>
+    </section>
 
-  function validateEmail(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+    <!-- SKILLS -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">My Skills</h2>
+            <div class="skills-container">
+                <div class="skill-card">
+                    <div class="skill-icon">HTML</div>
+                    <h3>HTML5</h3>
+                    <p>Strong knowledge of semantic structure and responsive designs.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">CSS</div>
+                    <h3>CSS3</h3>
+                    <p>Modern layouts using Flexbox, Grid, animations and clean UI.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">JS</div>
+                    <h3>JavaScript</h3>
+                    <p>Dynamic functionality, DOM manipulation and ES6 features.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">PHP</div>
+                    <h3>PHP</h3>
+                    <p>Server-side scripting and form handling using MySQL.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  form.addEventListener('submit', async function(e){
-    e.preventDefault();
-    clearMessage();
+    <!-- PROJECTS -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">My Projects</h2>
+            <div class="projects-container">
+                <div class="project-card">
+                    <div class="project-image">Project 1</div>
+                    <div class="project-content">
+                        <h3>Portfolio Website</h3>
+                        <p>A fully functional personal portfolio made using HTML, CSS, JavaScript & PHP.</p>
+                        <a href="#" class="btn">View Details</a>
+                    </div>
+                </div>
 
-    const name = form.name.value.trim();
-    const email = form.email.value.trim();
-    const subject = form.subject.value.trim();
-    const message = form.message.value.trim();
+                <div class="project-card">
+                    <div class="project-image">Project 2</div>
+                    <div class="project-content">
+                        <h3>Graph Visualizer</h3>
+                        <p>A JavaScript-based BFS/DFS graph traversal visualizer for students.</p>
+                        <a href="#" class="btn">View Details</a>
+                    </div>
+                </div>
 
-    if(!name || !email || !subject || !message){
-      showMessage('error','Please fill in all fields.');
-      return;
-    }
-    if(!validateEmail(email)){
-      showMessage('error','Please enter a valid email.');
-      return;
-    }
+                <div class="project-card">
+                    <div class="project-image">Project 3</div>
+                    <div class="project-content">
+                        <h3>Chat UI Demo</h3>
+                        <p>A front-end chat application demo with modern UI components.</p>
+                        <a href="#" class="btn">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    spinner.style.display = 'inline-block';
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-container">
 
-    try {
-      const fd = new FormData();
-      fd.append('name', name);
-      fd.append('email', email);
-      fd.append('subject', subject);
-      fd.append('message', message);
+                <div class="contact-form">
+                    <form id="contactForm" action="contact.php" method="POST">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
 
-      const res = await fetch('contact.php', { method:'POST', body: fd });
-      const data = await res.json();
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required value="gowthamveeraiah76@gmail.com">
+                        </div>
 
-      if(data.status === 'success'){
-        showMessage('success', data.message || 'Message sent successfully.');
-        form.reset();
-        loadStoredMessages(); // refresh local display (if using file/db)
-      } else {
-        // server validation errors
-        if(Array.isArray(data.errors)) {
-          showMessage('error', data.errors.join('<br>'));
-        } else {
-          showMessage('error', data.message || 'Server error. Try again.');
-        }
-      }
-    } catch(err){
-      showMessage('error','Network or server error. Make sure Apache is running.');
-      console.error(err);
-    } finally {
-      spinner.style.display = 'none';
-    }
-  });
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
 
-  // View stored messages: uses messages.txt (server-side). We'll request messages.txt if exists.
-  viewMsgsBtn.addEventListener('click', loadStoredMessages);
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
 
-  async function loadStoredMessages(){
-    storedMessages.innerHTML = '<div class="muted">Loading...</div>';
-    try {
-      // Try fetching messages.txt (plain text) placed by contact.php
-      const r = await fetch('messages.txt?' + Date.now());
-      if(!r.ok){ storedMessages.innerHTML = '<div class="muted">No stored messages or messages.txt not found.</div>'; return; }
-      const txt = await r.text();
-      if(!txt.trim()){ storedMessages.innerHTML = '<div class="muted">No messages saved yet.</div>'; return; }
-      const rows = txt.trim().split('---').filter(Boolean).map(s => s.trim());
-      let html = '';
-      for(const row of rows){
-        // each block has lines like "Name: ..\nEmail: ..\nMessage: .."
-        html += '<div class="card" style="margin-bottom:8px"><pre style="white-space:pre-wrap;margin:0">' + escapeHtml(row) + '</pre></div>';
-      }
-      storedMessages.innerHTML = html;
-    } catch(e){
-      storedMessages.innerHTML = '<div class="muted">Could not load messages (check server permissions).</div>';
-    }
-  }
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
 
-  function escapeHtml(s){ return String(s).replace(/[&<>"']/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]; }); }
+                <div class="contact-info">
 
-  // load on page load (optional)
-  // loadStoredMessages();
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <h3>Location</h3>
+                            <p>Hassan, Karnataka</p>
+                        </div>
+                    </div>
 
-})();
-</script>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <h3>Email</h3>
+                            <p>gowthamveeraiah76@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div>
+                            <h3>Phone</h3>
+                            <p>+91 7676076516</p>
+                        </div>
+                    </div>
+
+                    <!-- ADDED RESUME SECTION -->
+                    <div class="contact-item">
+                        <div class="contact-icon">📄</div>
+                        <div>
+                            <h3>Resume</h3>
+                            <p><a href="resume.pdf" download>Download My Resume (PDF)</a></p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://github.com/GowthamVeeraiah"><span>GitHub</span></a>
+                <a href="resume.pdf" download><span>Resume</span></a>
+                <a href="#"><span>LinkedIn</span></a>
+            </div>
+            <p>&copy; 2025 Gowtham. All Rights Reserved.</p>
+        </div>
+    </footer>
+
 </body>
 </html>
