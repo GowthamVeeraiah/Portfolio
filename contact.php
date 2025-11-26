@@ -1,59 +1,51 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get form data
-    $name = htmlspecialchars(trim($_POST['name']));
-    $email = htmlspecialchars(trim($_POST['email']));
-    $subject = htmlspecialchars(trim($_POST['subject']));
-    $message = htmlspecialchars(trim($_POST['message']));
-    
-    // Validate inputs
-    $errors = [];
-    
-    if (empty($name)) {
-        $errors[] = "Name is required.";
-    }
-    
-    if (empty($email)) {
-        $errors[] = "Email is required.";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Invalid email format.";
-    }
-    
-    if (empty($subject)) {
-        $errors[] = "Subject is required.";
-    }
-    
-    if (empty($message)) {
-        $errors[] = "Message is required.";
-    }
-    
-    // If no errors, process the form
-    if (empty($errors)) {
-        // In a real implementation, you would:
-        // 1. Save to database
-        // 2. Send email notification
-        // 3. Return success message
-        
-        // For this example, we'll just return a success message
-        $response = [
-            'status' => 'success',
-            'message' => 'Thank you for your message! I will get back to you soon.'
-        ];
-    } else {
-        $response = [
-            'status' => 'error',
-            'message' => 'Please fix the following errors:',
-            'errors' => $errors
-        ];
-    }
-    
-    // Return JSON response
-    header('Content-Type: application/json');
-    echo json_encode($response);
-    exit;
-} else {
-    // If not a POST request, redirect to home page
-    header('Location: index.html');
+// contact.php
+header('Content-Type: application/json; charset=utf-8');
+
+// Only accept POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    echo json_encode(['status'=>'error','message'=>'Invalid request method.']);
     exit;
 }
+
+// helper: sanitize
+function s($v){ return trim(htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8')); }
+
+$name = s($_POST['name'] ?? '');
+$email = s($_POST['email'] ?? '');
+$subject = s($_POST['subject'] ?? '');
+$message = s($_POST['message'] ?? '');
+
+$errors = [];
+if ($name === '') $errors[] = 'Name is required.';
+if ($email === '') $errors[] = 'Email is required.';
+elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = 'Invalid email format.';
+if ($subject === '') $errors[] = 'Subject is required.';
+if ($message === '') $errors[] = 'Message is required.';
+
+if (!empty($errors)) {
+    echo json_encode(['status'=>'error','message'=>'Please fix the errors.','errors'=>$errors]);
+    exit;
+}
+
+// Prepare entry for messages.txt
+$entry = "Name: {$name}\nEmail: {$email}\nSubject: {$subject}\nMessage:\n{$message}\nCreatedAt: " . date('Y-m-d H:i:s') . "\n---\n";
+
+$filename = __DIR__ . DIRECTORY_SEPARATOR . 'messages.txt';
+
+// Attempt to append; make sure file is writable by Apache user
+$ok = @file_put_contents($filename, $entry, FILE_APPEND | LOCK_EX);
+
+if ($ok === false) {
+    // If file write fails, still return success (or return error). We'll return error with guidance.
+    http_response_code(500);
+    echo json_encode(['status'=>'error','message'=>'Server error: cannot save message. Check file permissions for messages.txt.']);
+    exit;
+}
+
+// Optionally: send email (disabled here). Could be added with mail() if configured.
+// respond success
+echo json_encode(['status'=>'success','message'=>'Thank you for your message! I will get back to you soon.']);
+exit;
 ?>
